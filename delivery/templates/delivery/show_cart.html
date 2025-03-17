@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'delivery/css/styles.css' %}" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Delivery - Cart</title>
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+      }
+      nav {
+        background-color: #333;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav-links {
+        display: flex;
+        gap: 15px;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: #fff;
+        padding: 10px 20px;
+        background-color: #555;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+      }
+      .nav-links a:hover {
+        background-color: #777;
+      }
+      .cart-container {
+        background-color: #ffffff;
+        margin: 60px auto;
+        padding: 40px;
+        border-radius: 18px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        max-width: 550px;
+        text-align: center;
+      }
+      .cart-container h3 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+      .cart-container ul {
+        list-style: none;
+        padding: 0;
+      }
+      .cart-container li {
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .cart-container p {
+        margin-top: 20px;
+        font-weight: bold;
+        color: #444;
+        background-color: #f9f9f9;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .checkout-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        text-decoration: none;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+      .checkout-btn:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+      }
+      .empty-cart {
+        color: #bbb;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <h2 style="color: #fff">Food Delivery</h2>
+      <div class="nav-links">
+        <a href="{% url 'delivery:cusdisplay_res' username %}">View Restaurants</a>
+        <a href="{% url 'delivery:sign_in' %}">Sign In</a>
+        <a href="{% url 'delivery:sign_up' %}">Sign Up</a>
+      </div>
+    </nav>
+
+    <div class="cart-container">
+      <h3>Your Cart 🛒</h3>
+      {% if items %}
+      <ul>
+        {% for item in items %}
+        <li>{{ item.item_name }} - ₹{{ item.price }}</li>
+        {% endfor %}
+      </ul>
+      <p>Total Price: ₹<span style="color: #4caf50;">{{ total_price }}</span></p>
+
+      <a href="{% url 'delivery:checkout' username %}" class="checkout-btn">
+        Proceed to Checkout ➡️
+      </a>
+      {% else %}
+      <p class="empty-cart">Your cart is empty. 🫤</p>
+      {% endif %}
+    </div>
+  </body>
+</html>

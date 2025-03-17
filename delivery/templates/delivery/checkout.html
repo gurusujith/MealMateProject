@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #ffffff;
+        color: #4e342e;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        background-color: #fff;
+        max-width: 480px;
+        width: 100%;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        border-radius: 18px;
+        padding: 40px;
+        text-align: center;
+        border-top: 8px solid #f4a261;
+      }
+      h1 {
+        color: #f4a261;
+        font-weight: bold;
+      }
+      table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+      }
+      th, td {
+        padding: 14px;
+        border: 1px solid #ffe5d9;
+      }
+      th {
+        background-color: #f4a261;
+        color: #fff;
+      }
+      .total {
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: #d67b34;
+      }
+      .error-message {
+        color: #d9534f;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        padding: 12px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      #rzp-button {
+        background-color: #f4a261;
+        color: #fff;
+        border: none;
+        padding: 14px 26px;
+        border-radius: 30px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 20px;
+        transition: background 0.3s ease, transform 0.2s ease;
+        font-size: 1.3rem;
+      }
+      #rzp-button:hover {
+        background-color: #e76f51;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Checkout</h1>
+      <h2>Welcome, {{ username }}</h2>
+
+      {% if error %}
+      <div class="error-message">{{ error }}</div>
+      {% else %}
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart_items %}
+          <tr>
+            <td>{{ item.item_name }}</td>
+            <td>₹{{ item.price }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p class="total">Total: ₹{{ total_price }}</p>
+      <button id="rzp-button">Pay with Razorpay</button>
+      {% endif %}
+    </div>
+
+    <script>
+      var options = {
+        key: "{{ razorpay_key_id }}",
+        amount: "{{ total_price|floatformat:2|add:'0.00'|floatformat:2 }}00",
+        currency: "INR",
+        name: "Meal Mate",
+        description: "Order Payment",
+        order_id: "{{ order_id }}",
+        handler: function (response) {
+          alert("Payment Successful!");
+          window.location.href = "{% url 'delivery:orders' username %}";
+        },
+        prefill: {
+          name: "{{ username }}",
+          email: "customer@example.com",
+          contact: "9999999999",
+        },
+        theme: {
+          color: "#f4a261",
+        },
+      };
+      var rzp = new Razorpay(options);
+
+      document.getElementById("rzp-button").onclick = function (e) {
+        rzp.open();
+        e.preventDefault();
+      };
+    </script>
+  </body>
+</html>

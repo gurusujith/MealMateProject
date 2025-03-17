@@ -1,0 +1,12 @@
+{% extends 'delivery/base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'delivery/css/style.css' %}" />
+<br/>
+<h1 style="text-align: center; color: #4CAF50;">🍽️ Welcome to Meal-Mate! 🎉</h1>
+<div style="text-align: center;">
+  <a href="{% url 'delivery:sign_up' %}" style="font-size: 18px; font-weight: bold; color: #4CAF50;">📝 Sign Up</a>
+  <br/>
+  <a href="{% url 'delivery:sign_in' %}" style="font-size: 18px; font-weight: bold; color: #4CAF50;">🔑 Sign In</a>
+</div>
+{% endblock %}

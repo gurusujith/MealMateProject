@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Delivery</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      nav {
+        background-color: #333;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: white;
+        padding: 10px 20px;
+        background-color: #555;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      .nav-links a:hover {
+        background-color: #777;
+        transform: scale(1.05);
+      }
+
+      h2 {
+        margin-top: 20px;
+        text-align: center;
+        color: #444;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      th, td {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        text-align: center;
+      }
+
+      th {
+        background-color: #333;
+        color: #fff;
+      }
+
+      tr {
+        transition: background-color 0.3s ease;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      tr:hover {
+        background-color: #e0e0e0;
+        transform: scale(1.01);
+        transition: all 0.3s ease;
+      }
+
+      button {
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 15px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      button:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+      }
+
+      a {
+        color: #4CAF50;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      a:hover {
+        text-decoration: underline;
+        color: #3a9d42;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <h2 style="color: white">🍔 Food Delivery</h2>
+      <div class="nav-links">
+        <a href="{% url 'delivery:cusdisplay_res' username %}">🍽️ View Restaurants</a>
+        <a href="{% url 'delivery:sign_in' %}">🔑 Sign In</a>
+        <a href="{% url 'delivery:sign_up' %}">📝 Sign Up</a>
+      </div>
+    </nav>
+
+    <h2>🍕 Menu for {{ res.Res_name }}</h2>
+    <p style="text-align: center;">🏠 Address: {{ res.address }}</p>
+    <p style="text-align: center;">📂 Category: {{ res.Food_cat }}</p>
+    <p style="text-align: center;">⭐ Rating: {{ res.rating }}</p>
+    <div style="text-align: center; margin-bottom: 20px;">
+      <a href="{% url 'delivery:show_cart' username %}">🛒 Show Cart</a>
+    </div>
+
+    <table>
+      <tr>
+        <th>🍽️ Item Name</th>
+        <th>📝 Description</th>
+        <th>💵 Price</th>
+        <th>🔄 Availability</th>
+        <th>📂 Category</th>
+        <th>🔗 Action</th>
+      </tr>
+      {% for item in menu %}
+      <tr>
+        <td>{{ item.item_name }}</td>
+        <td>{{ item.description }}</td>
+        <td>${{ item.price }}</td>
+        <td>
+          {% if item.is_available %}✅ Available{% else %}❌ Not Available{% endif %}
+        </td>
+        <td>{{ item.category }}</td>
+        <td>
+          <form
+            method="POST"
+            action="{% url 'delivery:add_to_cart' item.id username %}"
+          >
+            {% csrf_token %}
+            <button
+              type="submit"
+              onclick="return confirm('Are you sure you want to add to cart?')"
+            >
+              🛒 Add to Cart
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6">❌ No menu items available.</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

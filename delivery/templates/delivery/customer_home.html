@@ -1,0 +1,33 @@
+{% extends 'delivery/cusbase.html' %} 
+{% block content %}
+
+<div style="
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+">
+  <div style="
+    background-color: #f0f8ff;
+    border: 2px solid #4CAF50;
+    border-radius: 12px;
+    padding: 40px 60px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+  ">
+    <h1 style="
+      color: #4CAF50;
+      margin-bottom: 10px;
+      font-size: 28px;
+    ">
+      Welcome, {{username}}!
+    </h1>
+    <p style="color: #555; font-size: 18px;">
+      Explore delicious cuisines, find top-rated restaurants, and enjoy a seamless food delivery experience.
+    </p>
+  </div>
+</div>
+
+{% endblock %}

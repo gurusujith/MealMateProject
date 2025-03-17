@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Delivery</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      nav {
+        background-color: #333;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: white;
+        padding: 10px 20px;
+        background-color: #555;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      .nav-links a:hover {
+        background-color: #777;
+        transform: scale(1.05);
+      }
+
+      h1 {
+        text-align: center;
+        color: #444;
+        margin-top: 30px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      th, td {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        text-align: center;
+      }
+
+      th {
+        background-color: #333;
+        color: #fff;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      tr:hover {
+        background-color: #e0e0e0;
+        transition: background-color 0.3s ease;
+      }
+
+      img {
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      button {
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 15px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      button:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <h2 style="color: white">🍔 Food Delivery</h2>
+      <div class="nav-links">
+        <a href="{% url 'delivery:cusdisplay_res' username %}">🍽️ View Restaurants</a>
+        <a href="{% url 'delivery:sign_in' %}">🔑 Sign In</a>
+        <a href="{% url 'delivery:sign_up' %}">📝 Sign Up</a>
+      </div>
+    </nav>
+
+    <div style="margin-top: 50px"></div>
+
+    <h1>👋 Hi {{username}}, Explore the Menu! 🍴</h1>
+
+    <table>
+      <tr>
+        <th>🍽️ Restaurant Name</th>
+        <th>📂 Category</th>
+        <th>⭐ Rating</th>
+        <th>📸 Image</th>
+        <th>🏠 Address</th>
+        <th>📋 View Menu</th>
+      </tr>
+
+      {% for item in li %}
+      <tr>
+        <td>{{ item.Res_name }}</td>
+        <td>{{ item.Food_cat }}</td>
+        <td>{{ item.rating }}/5</td>
+        <td>
+          <img
+            src="{{ item.img }}"
+            alt="Restaurant Image"
+            height="100"
+            width="100"
+          />
+        </td>
+        <td>{{ item.address }}</td>
+        <td>
+          <a href="{% url 'delivery:cusmenu' item.id username %}">
+            <button>🍽️ View Menu</button>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

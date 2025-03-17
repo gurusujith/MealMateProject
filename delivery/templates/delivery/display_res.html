@@ -1,0 +1,135 @@
+{% extends "delivery/base.html" %} 
+{% block content %}
+
+<div class="table-container">
+    <h1 class="table-heading">🍽️ Explore Our Restaurants</h1>
+    
+    <table class="restaurant-table">
+        <thead>
+            <tr>
+                <th>🍽️ Restaurant Name</th>
+                <th>🍔 Category</th>
+                <th>⭐ Rating</th>
+                <th>🖼️ Image</th>
+                <th>🏠 Address</th>
+                <th>📜 View Menu</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in li %}
+            <tr>
+                <td>{{ item.Res_name }}</td>
+                <td>{{ item.Food_cat }}</td>
+                <td>{{ item.rating }}/5</td>
+                <td>
+                    <img src="{{ item.img }}" alt="Restaurant Image" class="restaurant-img" />
+                </td>
+                <td>{{ item.address }}</td>
+                <td>
+                    <a href="{% url 'delivery:view_menu' item.id %}">
+                        <button class="btn-view-menu">📜 View Menu</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+  .table-container {
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.5s ease-in-out;
+      overflow-x: auto;  /* Scroll support for smaller screens */
+  }
+
+  .table-heading {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+  }
+
+  .restaurant-table {
+      width: 100%;
+      border-collapse: collapse;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .restaurant-table th,
+  .restaurant-table td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+  }
+
+  .restaurant-table th {
+      background-color: #333;
+      color: #fff;
+  }
+
+  .restaurant-table tr:nth-child(even) {
+      background-color: #f8f9fa;
+  }
+
+  .restaurant-table tr:hover {
+      background-color: #ffeedb;
+      transition: background 0.3s ease;
+  }
+
+  .restaurant-img {
+      height: 80px;
+      width: 80px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-view-menu {
+      background-color: #ff6600;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  .btn-view-menu:hover {
+      background-color: #e55b00;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 102, 0, 0.5);
+  }
+
+  @keyframes fadeIn {
+      from {
+          opacity: 0;
+          transform: translateY(-10px);
+      }
+      to {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  }
+
+  @media (max-width: 768px) {
+      .restaurant-table th,
+      .restaurant-table td {
+          padding: 10px 8px;
+          font-size: 14px;
+      }
+
+      .restaurant-img {
+          height: 60px;
+          width: 60px;
+      }
+
+      .btn-view-menu {
+          padding: 6px 12px;
+      }
+  }
+</style>
+
+{% endblock %}

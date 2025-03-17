@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Delivery</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Poppins', Arial, sans-serif;
+        background-color: #f9f9fb;
+        color: #333;
+      }
+
+      nav {
+        background-color: #4CAF50;
+        padding: 20px 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      h2 {
+        color: #fff;
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 1px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #fff;
+        padding: 12px 24px;
+        background-color: #66bb6a;
+        border-radius: 30px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .nav-links a:hover {
+        background-color: #388e3c;
+        transform: scale(1.05);
+      }
+
+      @media (max-width: 768px) {
+        nav {
+          flex-direction: column;
+          text-align: center;
+          padding: 15px;
+        }
+
+        .nav-links {
+          flex-direction: column;
+          gap: 10px;
+          margin-top: 15px;
+        }
+
+        .nav-links a {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <h2>Food Delivery</h2>
+      <div class="nav-links">
+        <a href="{% url 'delivery:cusdisplay_res' %}">View Restaurants</a>
+        <a href="{% url 'delivery:sign_in' %}">Sign In</a>
+        <a href="{% url 'delivery:sign_up' %}">Sign Up</a>
+      </div>
+    </nav>
+
+    {% block content %} {% endblock %}
+  </body>
+</html>

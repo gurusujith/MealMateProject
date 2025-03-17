@@ -1,0 +1,57 @@
+{% extends 'delivery/base.html' %}
+{% block content %}
+<form method="POST" action="{% url 'delivery:handle_signup' %}" 
+      style="max-width: 400px; margin: 50px auto; background-color: #fff; padding: 30px; 
+             border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
+  
+  {% csrf_token %}
+  
+  <!-- Username Field with Emoji -->
+  <label for="username" style="display: block; margin-bottom: 5px; font-weight: bold; color: #333;">
+    👤 Username
+  </label>
+  <input type="text" name="username" id="username" 
+         style="width: 100%; padding: 10px; margin-bottom: 15px; 
+                border: 1px solid #ccc; border-radius: 6px;" required />
+
+  <!-- Password Field with Emoji -->
+  <label for="password" style="display: block; margin-bottom: 5px; font-weight: bold; color: #333;">
+    🔒 Password
+  </label>
+  <input type="password" name="password" id="password" 
+         style="width: 100%; padding: 10px; margin-bottom: 15px; 
+                border: 1px solid #ccc; border-radius: 6px;" required />
+
+  <!-- Email Field with Emoji -->
+  <label for="email" style="display: block; margin-bottom: 5px; font-weight: bold; color: #333;">
+    📧 Email
+  </label>
+  <input type="email" name="email" id="email" 
+         style="width: 100%; padding: 10px; margin-bottom: 15px; 
+                border: 1px solid #ccc; border-radius: 6px;" required />
+
+  <!-- Mobile Field with Emoji -->
+  <label for="mobile" style="display: block; margin-bottom: 5px; font-weight: bold; color: #333;">
+    📱 Mobile
+  </label>
+  <input type="text" name="mobile" id="mobile" 
+         style="width: 100%; padding: 10px; margin-bottom: 15px; 
+                border: 1px solid #ccc; border-radius: 6px;" required />
+
+  <!-- Address Field with Emoji -->
+  <label for="address" style="display: block; margin-bottom: 5px; font-weight: bold; color: #333;">
+    🏠 Address
+  </label>
+  <input type="text" name="address" id="address" 
+         style="width: 100%; padding: 10px; margin-bottom: 20px; 
+                border: 1px solid #ccc; border-radius: 6px;" required />
+
+  <!-- Submit Button -->
+  <button type="submit" 
+          style="width: 100%; background-color: #ff6600; color: #fff; border: none; 
+                 padding: 12px; border-radius: 6px; cursor: pointer; 
+                 transition: background 0.3s ease;">
+    Sign Up
+  </button>
+</form>
+{% endblock %}

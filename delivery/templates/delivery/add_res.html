@@ -1,0 +1,117 @@
+{% extends "delivery/base.html" %} 
+{% block content %}
+<div class="form-container">
+    <h1>Add a New Restaurant</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="id_Res_name">🍽️ Restaurant Name:</label>
+            {{ form.Res_name }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_Food_cat">🍔 Food Category:</label>
+            {{ form.Food_cat }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_rating">⭐ Rating:</label>
+            {{ form.rating }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_img">🖼️ Image:</label>
+            {{ form.img }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_address">🏠 Address:</label>
+            {{ form.address }}
+        </div>
+
+        <button type="submit" class="btn-submit">📤 Submit</button>
+    </form>
+</div>
+
+<style>
+  .form-container {
+      max-width: 500px;
+      margin: 60px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+      from {
+          opacity: 0;
+          transform: translateY(-10px);
+      }
+      to {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  }
+
+  h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+  }
+
+  .form-group {
+      margin-bottom: 15px;
+  }
+
+  label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #333;
+  }
+
+  input[type="text"], 
+  input[type="number"], 
+  input[type="file"], 
+  textarea {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      outline: none;
+      transition: border 0.3s ease;
+  }
+
+  input:focus, textarea:focus {
+      border-color: #ff6600;
+      box-shadow: 0 0 5px rgba(255, 102, 0, 0.5);
+  }
+
+  .btn-submit {
+      background-color: #ff6600;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  .btn-submit:hover {
+      background-color: #e55b00;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 102, 0, 0.5);
+  }
+
+  @media (max-width: 600px) {
+      .form-container {
+          width: 90%;
+          padding: 20px;
+      }
+  }
+</style>
+{% endblock %}
